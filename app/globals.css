@@ -24,3 +24,287 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+html {
+  scroll-behavior: smooth;
+}
+/* Fade + slight zoom */
+@keyframes terminalFade {
+  0% { opacity: 0; transform: scale(0.96); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-terminalFade {
+  animation: terminalFade 0.6s ease-out forwards;
+}
+
+/* CRT scanline effect */
+.crt {
+  position: relative;
+  box-shadow: 0 0 20px #00ff00;
+}
+
+/* Subtle flicker + scanlines */
+.crt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 255, 0, 0.06) 0,
+    rgba(0, 255, 0, 0.03) 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.08; }
+  50% { opacity: 0.12; }
+  100% { opacity: 0.08; }
+}
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fadeSlideIn {
+  animation: fadeSlideIn 0.7s ease-out forwards;
+}
+
+/* Typing Animation */
+.typing-text {
+  width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid #22ff22;
+  /* animation: typing 2s steps(30) forwards, blink 0.6s infinite; */
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 200px;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.typing-sub {
+  opacity: 0;
+  animation: fadeText 1.5s ease forwards 2s;
+}
+
+@keyframes fadeText {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #0a0e1a;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1e3a5f;
+  border-radius: 4px;
+  border: 1px solid #0a0e1a;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #2a4f7a;
+}
+
+/* Enhanced Terminal Fade Animation */
+@keyframes terminalFade {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-terminalFade {
+  animation: terminalFade 0.3s ease-out forwards;
+}
+
+/* Cursor Blink Animation */
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Professional Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Professional Binary Background - Complete Developer Terminal Look */
+.binary-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(0, 255, 0, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 255, 0, 0.03) 0%, transparent 50%),
+    #000000;
+  opacity: 1;
+}
+
+/* Professional grid overlay */
+.binary-grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.binary-column {
+  position: absolute;
+  top: -100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  animation: binaryFall linear infinite;
+  opacity: 0.8;
+}
+
+.binary-digit-falling {
+  color: #00ff41;
+  font-family: 'Courier New', 'Consolas', monospace;
+  font-size: 15px;
+  font-weight: 400;
+  user-select: none;
+  text-shadow: 
+    0 0 6px rgba(0, 255, 65, 0.9),
+    0 0 12px rgba(0, 255, 65, 0.5),
+    0 0 18px rgba(0, 255, 65, 0.3);
+  opacity: 0.85;
+  transition: opacity 0.15s ease, color 0.1s ease;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+}
+
+.binary-digit-falling:first-child {
+  opacity: 1;
+  color: #ffffff;
+  font-weight: 700;
+  text-shadow: 
+    0 0 12px rgba(255, 255, 255, 1),
+    0 0 24px rgba(0, 255, 65, 0.9),
+    0 0 36px rgba(0, 255, 65, 0.6),
+    0 0 48px rgba(0, 255, 65, 0.3);
+  font-size: 17px;
+}
+
+@keyframes binaryFall {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.8;
+  }
+  95% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(calc(100vh + 100%));
+    opacity: 0;
+  }
+}
+
+/* Professional fade effect for trailing digits */
+.binary-digit-falling:nth-child(n+2) {
+  opacity: 0.7;
+  color: #00ff41;
+}
+
+.binary-digit-falling:nth-child(n+4) {
+  opacity: 0.5;
+  color: #00cc33;
+}
+
+.binary-digit-falling:nth-child(n+8) {
+  opacity: 0.35;
+  color: #009922;
+}
+
+.binary-digit-falling:nth-child(n+15) {
+  opacity: 0.2;
+  color: #006611;
+}
+
+.binary-digit-falling:nth-child(n+25) {
+  opacity: 0.1;
+  color: #003308;
+}
+
+/* Terminal container wrapper for professional backdrop */
+.terminal-container-wrapper {
+  position: relative;
+  z-index: 20;
+}
+
+.terminal-container-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: radial-gradient(ellipse at center, rgba(0, 255, 0, 0.1) 0%, transparent 70%);
+  border-radius: 20px;
+  z-index: -1;
+  pointer-events: none;
+}
