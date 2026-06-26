@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 
 export default function TerminalPortfolio() {
-  const [lines, setLines] = useState([]);
+  const [lines, setLines] = useState<string[]>([]);
   const [input, setInput] = useState("");
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState<string[]>([]);
 
   const commands = {
     help: [
@@ -46,14 +46,12 @@ export default function TerminalPortfolio() {
     ],
   };
 
-  const runCommand = (cmd :any) => {
-    let output = commands[cmd];
-
-    if (!output) {
-      return [`Unknown command: ${cmd}`, `Type 'help' to see available commands.`];
+  const runCommand = (cmd: string): string[] => {
+    if (cmd in commands) {
+      return commands[cmd as keyof typeof commands];
     }
 
-    return output;
+    return [`Unknown command: ${cmd}`, `Type 'help' to see available commands.`];
   };
 
   const handleEnter = () => {
