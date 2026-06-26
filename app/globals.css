@@ -31,17 +31,21 @@ body {
 html {
   scroll-behavior: smooth;
 }
-/* Fade + slight zoom */
+/* Enhanced Terminal Fade Animation */
 @keyframes terminalFade {
-  0% { opacity: 0; transform: scale(0.96); }
-  100% { opacity: 1; transform: scale(1); }
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-terminalFade {
-  animation: terminalFade 0.6s ease-out forwards;
+  animation: terminalFade 0.3s ease-out forwards;
 }
-
-/* CRT scanline effect */
 .crt {
   position: relative;
   box-shadow: 0 0 20px #00ff00;
@@ -140,24 +144,8 @@ html {
   background: #2a4f7a;
 }
 
-/* Enhanced Terminal Fade Animation */
-@keyframes terminalFade {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-terminalFade {
-  animation: terminalFade 0.3s ease-out forwards;
-}
-
-/* Cursor Blink Animation */
-@keyframes blink {
+/* Cursor blink for terminal */
+@keyframes cursorBlink {
   0%, 50% {
     opacity: 1;
   }

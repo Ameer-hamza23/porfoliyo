@@ -22,7 +22,7 @@ export default function HeadSection() {
       }
     }, speed);
     return () => clearTimeout(timeout);
-  }, [index, deleting]);
+  }, [index, deleting, fullName]);
 
   return (
     <>
@@ -56,7 +56,7 @@ export default function HeadSection() {
             </h1>
 
             <p className="pt-4 max-w-[90%] text-lg">
-              Crafting immersive and high-performance web applications with a futuristic touch. Let's build the future, one line of code at a time.
+              Crafting immersive and high-performance web applications with a futuristic touch. Let&apos;s build the future, one line of code at a time.
             </p>
 
             <div className="pt-8 flex flex-col sm:flex-row gap-3">
@@ -79,7 +79,7 @@ export default function HeadSection() {
 
         <div className="hidden md:flex w-1/2 justify-start">
           <img
-            src="right.png"
+            src="/right.png"
             alt="profile"
             className="size-96 rounded-xl object-cover float-3d"
           />

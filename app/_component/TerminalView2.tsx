@@ -7,8 +7,9 @@ import React, {
   useEffect,
   JSX,
 } from "react";
-import { about, email, github, linkedin, terminalName, routes, projects as globalProjects, skills as globalSkills } from "../data";
+import { about, email, github, linkedin, terminalName, routes, projects as globalProjects, skills as globalSkills, fullName, title, number, whatsapp } from "../data";
 import { useRouter } from "next/navigation";
+import TypewriterName from "./TypewriterName";
 
 interface HistoryEntry {
   cmd: string;
@@ -48,7 +49,6 @@ export default function Terminal() {
   const [command, setCommand] = useState<string>("");
   const [showAboutView, setShowAboutView] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isTyping, setIsTyping] = useState(false);
   const [isUserTyping, setIsUserTyping] = useState(false);
   const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
   const [hasFocus, setHasFocus] = useState(true); // Track if terminal input has focus
@@ -94,6 +94,19 @@ export default function Terminal() {
               ✓ Copied!
             </span>
           )}
+        </div>
+        <div className="flex items-center gap-3 group">
+          <span className="text-cyan-400 text-lg">📱</span>
+          <span className="text-gray-300">WhatsApp:</span>
+          <a
+            href={whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-cyan-400 hover:text-cyan-300 transition-colors duration-200 font-medium hover:underline"
+          >
+            +{number}
+          </a>
+          <span className="text-gray-500 text-sm">(type &apos;c number&apos; to open chat)</span>
         </div>
         <div className="flex items-center gap-3 group">
           <span className="text-cyan-400 text-lg">🔗</span>
@@ -297,8 +310,12 @@ export default function Terminal() {
             <span>View detailed project information (use project number, name, or id)</span>
           </div>
           <div className="flex gap-4">
-            <span className="text-cyan-400 font-mono w-20">contact, c</span>
+            <span className="text-cyan-400 font-mono w-28">contact, c</span>
             <span>Get my contact information</span>
+          </div>
+          <div className="flex gap-4">
+            <span className="text-cyan-400 font-mono w-28">c number</span>
+            <span>Open WhatsApp chat in a new browser tab</span>
           </div>
           <div className="flex gap-4">
             <span className="text-cyan-400 font-mono w-20">clear</span>
@@ -318,7 +335,7 @@ export default function Terminal() {
           </div>
         </div>
         <div className="mt-4 pt-3 border-t border-gray-700 text-gray-500 text-sm">
-          Tip: Use shorter aliases (a, s, p, c , g) for faster navigation. Use 'graphical' or '3d' to switch views.
+          Tip: Use shorter aliases (a, s, p, c, g) for faster navigation. Use &apos;graphical&apos; or &apos;3d&apos; to switch views.
         </div>
       </div>
     ),
@@ -327,7 +344,7 @@ export default function Terminal() {
         <p className="text-gray-200">{about}</p>
         <div className="pt-2 border-t border-gray-700/50">
           <p className="text-gray-400 text-sm italic">
-            "When I'm not coding, I explore tech trends, contribute to open-source, or enjoy a good cup of coffee while planning my next project."
+            &quot;When I&apos;m not coding, I explore tech trends, contribute to open-source, or enjoy a good cup of coffee while planning my next project.&quot;
           </p>
         </div>
       </div>
@@ -357,7 +374,6 @@ export default function Terminal() {
       if (!cmd) return;
 
       // Clear command immediately to prevent mobile input caching
-      const currentCommand = command;
       setCommand("");
       lastTypedRef.current = ""; // Clear tracking ref
       
@@ -373,7 +389,7 @@ export default function Terminal() {
         input.blur();
       }
 
-      setIsTyping(true);
+      setIsUserTyping(true);
       
       // After a short delay, refocus and ensure it's cleared
       setTimeout(() => {
@@ -390,23 +406,48 @@ export default function Terminal() {
         setTimeout(() => {
           router.push(routes.graphical);
         }, 300);
-        setIsTyping(false);
         return;
       }
       
-      if (cmd === "3d" || cmd === "three" || cmd === "3D" || cmd == "d3" ) {
+      if (cmd === "3d" || cmd === "three" || cmd === "d3") {
         setTimeout(() => {
           router.push(routes.threeD);
         }, 300);
-        setIsTyping(false);
         return;
       }
       
-      if (cmd === "home" || cmd === "Home") {
+      if (cmd === "home") {
         setTimeout(() => {
           router.push(routes.home);
         }, 300);
-        setIsTyping(false);
+        return;
+      }
+
+      // Open WhatsApp: contact number / c number
+      const whatsappMatch = cmd.match(/^(contact|c)\s+number$/);
+      if (whatsappMatch) {
+        window.open(whatsapp, "_blank", "noopener,noreferrer");
+        const result = (
+          <span className="text-emerald-400 flex items-center gap-2">
+            <span>✓</span>
+            <span>
+              Opening WhatsApp chat with{" "}
+              <span className="font-mono text-cyan-300">+{number}</span> in a new tab...
+            </span>
+          </span>
+        );
+        setTimeout(() => {
+          setHistory((prev) => [
+            ...prev,
+            { cmd, result, timestamp: getTimestamp() },
+          ]);
+          setIsUserTyping(true);
+          setShouldAutoScroll(true);
+          if (inputRef.current) {
+            inputRef.current.value = "";
+            inputRef.current.focus();
+          }
+        }, 100);
         return;
       }
       
@@ -439,7 +480,6 @@ export default function Terminal() {
               { cmd, result, timestamp: getTimestamp() },
             ]);
             // Command already cleared above
-            setIsTyping(false);
             setIsUserTyping(true);
             setShouldAutoScroll(true);
             // Force input re-render for mobile
@@ -461,7 +501,7 @@ export default function Terminal() {
               <span className="text-red-400 flex items-center gap-2">
                 <span>✗</span>
                 <span>Project not found: <span className="font-mono">{projectId}</span></span>
-                <span className="text-gray-500">(type 'projects' to see available projects, or use project number, name, or id)</span>
+                <span className="text-gray-500">(type &apos;projects&apos; to see available projects, or use project number, name, or id)</span>
               </span>
             );
             setHistory((prev) => [
@@ -469,7 +509,6 @@ export default function Terminal() {
               { cmd, result, timestamp: getTimestamp() },
             ]);
             setCommand("");
-            setIsTyping(false);
           }, 100);
           return;
         }
@@ -491,7 +530,6 @@ export default function Terminal() {
       if (cmd === "clear" || cmd == "cls") {
         setHistory([]);
         // Command already cleared above
-        setIsTyping(false);
         setShowAboutView(false);
         setSelectedProject(null);
         setIsUserTyping(true);
@@ -511,7 +549,7 @@ export default function Terminal() {
           <span className="text-red-400 flex items-center gap-2">
             <span>✗</span>
             <span>Command not found: <span className="font-mono">{cmd}</span></span>
-            <span className="text-gray-500">(type 'help' for available commands)</span>
+            <span className="text-gray-500">(type &apos;help&apos; for available commands)</span>
           </span>
         );
 
@@ -522,7 +560,6 @@ export default function Terminal() {
           { cmd, result, timestamp: getTimestamp() },
         ]);
         // Command already cleared above
-        setIsTyping(false);
         setIsUserTyping(true); // Enable auto-scroll when command is executed
         setShouldAutoScroll(true);
         // Ensure input is cleared and focused
@@ -680,7 +717,7 @@ export default function Terminal() {
       result: (
         <div className="space-y-2 md:space-y-3 text-gray-300 py-2">
           <div className="text-cyan-400 font-bold text-lg md:text-xl mb-2 md:mb-3">
-            Welcome to {terminalName}'s Portfolio Terminal
+            Welcome to {terminalName}&apos;s Portfolio Terminal
           </div>
           <div className="text-gray-400 text-sm md:text-base leading-relaxed">
             Type <span className="text-cyan-400 font-mono font-semibold">help</span> to see available commands
@@ -744,13 +781,13 @@ export default function Terminal() {
                 />
               </div>
 
-              <h2 className="mt-4 md:mt-6 text-cyan-300 text-xl md:text-2xl font-bold typing-text text-center px-2">
-                Ameer Hamza
+              <h2 className="mt-4 md:mt-6 text-cyan-300 text-xl md:text-2xl font-bold text-center px-2 min-h-[2rem] md:min-h-[2.5rem]">
+                <TypewriterName text={fullName} active={showAboutView && !selectedProject} />
               </h2>
               <div className="flex items-center gap-2 mt-2 md:mt-3 px-2">
                 <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
-                <p className="text-cyan-400 typing-sub text-xs md:text-sm font-medium text-center">
-                  Full Stack MERN Developer
+                <p className="text-cyan-400 text-xs md:text-sm font-medium text-center">
+                  {title}
                 </p>
               </div>
             </>

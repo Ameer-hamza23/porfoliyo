@@ -11,7 +11,7 @@ export const title = "Full Stack MERN Developer";
 export const location = "Pakistan";
 
 // ==================== ABOUT INFORMATION ====================
-export const about = "Hello! I'm Ameer Hamza, a passionate Full Stack Developer specializing in the MERN stack. With a background in computer science and a keen eye for design, I thrive on building scalable, efficient, and visually appealing web applications.";
+export const about = `Hello! I'm ${fullName}, a passionate Full Stack Developer specializing in the MERN stack. With a background in computer science and a keen eye for design, I thrive on building scalable, efficient, and visually appealing web applications.`;
 
 export const extraActivityAbout = "When I'm not coding, I explore tech trends, contribute to open-source, or enjoy a good cup of coffee while planning my next project.";
 
@@ -37,7 +37,7 @@ export const projects = [
     title: "MERN E-Commerce Zotin",
     name: "MERN E-Commerce Zotin",
     img: "home.png",
-    desc: "A modern developer portfolio showcasing skills, animations, and responsive UI.",
+    desc: "Full-stack e-commerce platform with authentication, cart system, and admin dashboard.",
     longDesc: "A complete e-commerce solution built with the MERN stack. Features include user authentication, shopping cart, payment integration, order management, and an admin dashboard for product and order management.",
     tech: ["MongoDB", "Express", "React", "Node.js", "Socket.IO", "Real-time"],
     tags: ["MERN", "Socket.IO", "Redis"],

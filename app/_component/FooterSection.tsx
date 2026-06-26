@@ -1,5 +1,5 @@
 import React from "react";
-import { FaGithub, FaLinkedin, FaFacebook, FaWhatsapp } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { name , email, number, github, linkedin, whatsapp} from "../data";
 
@@ -13,7 +13,7 @@ export default function FooterSection() {
           <h1 className="text-3xl font-bold text-[#26CCBB]">{name}</h1>
           <p className="text-gray-300 mt-3 w-[90%] leading-relaxed">
             MERN Stack Developer crafting modern, high-performance, user-focused digital experiences.  
-            Let's connect and build something amazing together.
+            Let&apos;s connect and build something amazing together.
           </p>
         </div>
 

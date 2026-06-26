@@ -24,7 +24,7 @@ export default function BodySection() {
       <div className="bg-[#1C1C2D] flex flex-col md:flex-row py-20 px-10" id="about">
 
         <div className="flex w-full md:w-1/2 justify-center items-end pb-10 md:pb-0">
-          <img src="IMG-20251023-WA0029.jpg" alt="Profile" className="size-80 md:size-96 object-cover rounded-xl" />
+          <img src="/IMG-20251023-WA0029.jpg" alt="Profile" className="size-80 md:size-96 object-cover rounded-xl" />
         </div>
 
         <div className="w-full md:w-1/2 text-white px-5">
@@ -77,7 +77,7 @@ export default function BodySection() {
 
         <div className="w-full flex justify-center mt-3">
           <p className="text-gray-300 text-center w-[60%]">
-            Here are some of the projects I'm proud of. Each one represents a challenge I was excited to tackle.
+            Here are some of the projects I&apos;m proud of. Each one represents a challenge I was excited to tackle.
           </p>
         </div>
 
@@ -87,7 +87,7 @@ export default function BodySection() {
                 key={index}
                 className="bg-[#303249] rounded-xl overflow-hidden hover:scale-105 transition-all hover:shadow-xl hover:shadow-[#26CCBB]/40"
                 >
-                <img src={proj.img} alt="Project" className="w-full h-48 object-cover" />
+                <img src={`/${proj.img}`} alt={proj.title} className="w-full h-48 object-cover" />
 
                 <div className="p-5">
                     <h2 className="text-2xl font-bold">{proj.title}</h2>

@@ -1,13 +1,13 @@
 "use client";
 import React, { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Stars, Float, Text, Html, PerspectiveCamera } from "@react-three/drei";
+import { OrbitControls, Stars, Float, Html, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
-import { name, title, bio, projects, skills, socialLinks, colors } from "../data";
+import { name, title, bio, projects, skills, colors } from "../data";
 import { useRouter } from "next/navigation";
 
 // 3D Card Component for Projects
-function ProjectCard({ project, position, index }: { project: any; position: [number, number, number]; index: number }) {
+function ProjectCard({ project, position, index }: { project: (typeof projects)[number]; position: [number, number, number]; index: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -240,7 +240,7 @@ function Scene() {
       <spotLight position={[0, 10, 0]} angle={0.3} penumbra={1} intensity={1} />
 
       {/* Stars Background */}
-      <Stars radius={100} depth={50} count={5000} factor={4} fade speed={1} />
+      <Stars radius={100} depth={50} count={2000} factor={4} fade speed={1} />
 
       {/* Name Display */}
       <Suspense fallback={null}>
